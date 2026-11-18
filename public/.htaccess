@@ -1,0 +1,4 @@
+Options -Indexes
+<FilesMatch "^(?:\.ht|composer\.(?:json|lock))$">
+ Require all denied
+</FilesMatch>

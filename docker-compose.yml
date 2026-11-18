@@ -1,0 +1,23 @@
+# Test local du déploiement Docker + volume persistant SQLite
+# Usage : docker compose up --build
+services:
+  sesame:
+    build: .
+    container_name: sesame_campus
+    ports:
+      - "8080:8080"
+    environment:
+      APP_ENV: production
+      DB_DRIVER: sqlite
+      SQLITE_PATH: /data/sesame.sqlite
+      DEMO_SHOW_RESET_LINK: "true"
+      SESSION_LIFETIME: "900"
+      PORT: "8080"
+    volumes:
+      # Persistance : la DB SQLite survit aux rebuilds / restarts
+      - sesame_data:/data
+    restart: unless-stopped
+
+volumes:
+  sesame_data:
+    name: sesame_campus_data

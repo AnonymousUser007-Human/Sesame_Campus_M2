@@ -1,0 +1,32 @@
+# Blueprint Render — Sesame Campus (Docker + SQLite + disque persistant)
+# Doc : https://render.com/docs/blueprint-spec
+# Note : un Persistent Disk nécessite un plan payant (pas le free tier).
+
+services:
+  - type: web
+    name: sesame-campus
+    runtime: docker
+    plan: starter
+    region: frankfurt
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health.php
+    disk:
+      name: sesame-sqlite-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DB_DRIVER
+        value: sqlite
+      - key: SQLITE_PATH
+        value: /data/sesame.sqlite
+      - key: DEMO_SHOW_RESET_LINK
+        value: "true"
+      - key: SESSION_LIFETIME
+        value: "900"
+      - key: MAX_LOGIN_ATTEMPTS
+        value: "5"
+      - key: LOCKOUT_SECONDS
+        value: "300"

@@ -1,0 +1,14 @@
+.git
+.gitignore
+data/*.sqlite
+data/*.sqlite-*
+docs
+*.md
+!README.md
+.dockerignore
+Dockerfile
+docker-compose.yml
+render.yaml
+agent-tools
+**/.DS_Store
+**/Thumbs.db
